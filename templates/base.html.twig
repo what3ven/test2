@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="logo">
+            Logo
+        </div>
+        <div>
+            <a href="/twig">twig</a>
+            <a href="/twig/details">details</a>
+            <a href="/db/categories">categories</a>
+        </div>
+    </div>
+</header>
+<div class="content">
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+<footer>
+    <div class="container">
+        Copyright: sapryk
+    </div>
+</footer>
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(bookForm) }}
+
+    {{ form_row(bookForm.title, {'label' :'attr' : { 'placeholder' : 'Nom ...', 'class' : 'form-control'}} )}}
+    <br>
+    {{ form_row(bookForm.description, {'label' : 'attr' : { 'class' : 'form-control' }} )}}
+    <br>
+    {{ form_row(bookForm.DateTimeInterface, {'label' : 'Description', 'attr' : {'class' : 'form-control'}} )}}
+    <br>
+    {{ form_row(bookForm.image, { 'label' :'Image', 'attr' : { 'class':'form-control'}}) }}
+    <br>
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer les modifications
+        {% else %}
+            Ajouter le montage
+        {% endif %}
+    </button>
+
+    {{ form_end(formEspece) }}
+{% endblock %}
