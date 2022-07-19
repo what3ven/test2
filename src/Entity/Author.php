@@ -49,14 +49,23 @@ class Author
         return $this->books;
     }
 
-    /**
-     * @param Collection<Book>
-     * @return $this
-     */
-    public function setBooks(ArrayCollection|Collection $books): self
+    public function addBook(Book $book): self
     {
-        $this->books = $books;
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+        }
+
+
 
         return $this;
     }
+    public function removeBook(Book $book): self
+    {
+        $this->books->removeElement($book);
+
+        return $this;
+
+
+    }
+
 }

@@ -8,20 +8,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class BookForm extends AbstractType
+class BookType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title')
             ->add('description')
-            ->add('DateTimeInterface')
+            ->add('publicationDate')
             ->add('image', FileType::class, [
                 'required' => true
             ] )
+            ->add('authors', null,['choice_label'=> 'title',
+                'mapped'=>false,
+                'multiple'=>false])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

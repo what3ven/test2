@@ -1,0 +1,21 @@
+
+<html lang="Ru_ru">
+<head> <title> Books </title> </head>
+<body>
+<a href="{{ path('addBook') }}"> <h1>Add book</h1> </a>
+<h1>Our Books:</h1>
+<ul>
+    {% for book in books  %}
+        <li>Название : <a href="{{ path('book', {'id' : book.id}) }}"> {{ book.title }} </a> <br>
+            Описание : {{ book.description }} <br>
+            Год публикации : {{ book.publicationDate }} г. <br>
+            Автор(ы):
+            {% for author in book.authors %}
+                {{ author }} <br>
+            {% endfor %}
+        </li>
+        <br>
+    {% endfor %}
+</ul>
+</body>
+</html>
