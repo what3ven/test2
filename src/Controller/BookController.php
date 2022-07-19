@@ -16,13 +16,10 @@ use App\Repository\BookRepository;
 
 class BookController extends AbstractController
 {
-    /**
-     *
-     */
     #[Route("/", name:"book_index")]
     public function index(BookRepository $bookRepository)
     {
-        return $this->render('book/books.html.twig', [
+        return $this->render('Author/main.html.twig', [
             'books' => $bookRepository->findAll(),
         ]);
     }

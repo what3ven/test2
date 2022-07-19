@@ -9,7 +9,6 @@ use App\Form\BookType;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +26,7 @@ class AuthorController extends AbstractController
         $book = new Book();
         $formBook = $this->createForm(BookType::class, $book);
 
-        return $this->render('Author/authors.html.twig', [
+        return $this->render('Author/main.html.twig', [
             'books' => $bookRepository->findAll(),
             'authors' => $authorRepository->findAll(),
             'author' => $author,
@@ -74,16 +73,11 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/db/delete/{id}", name="delete_delete", methods={"POST"})
-     */
     #[Route("/db/delete/{id}", name:"author_delete")]
     public function delete(EntityManagerInterface $manager, Request $request, Author $author): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$author->getId(), $request->request->get('_token'))) {
-            $manager->remove($author);
-            $manager->flush();
-        }
+        $manager->remove($author);
+        $manager->flush();
 
         return $this->redirectToRoute('author_index', []);
     }
