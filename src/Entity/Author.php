@@ -17,6 +17,7 @@ class Author
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;
+
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: "authors")]
     #[ORM\JoinTable(name: 'author_book')]
     private Collection $books;
@@ -55,17 +56,13 @@ class Author
             $this->books[] = $book;
         }
 
-
-
         return $this;
     }
+
     public function removeBook(Book $book): self
     {
         $this->books->removeElement($book);
 
         return $this;
-
-
     }
-
 }

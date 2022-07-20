@@ -8,6 +8,10 @@
 <a href="{{ path('book_index') }}"> <h1>Home</h1> </a>
 <h1>Добавление книги</h1>
 {{ form_start(formBook) }}
+    <div class="label">
+        {{ form_label(formBook.title) }}
+    </div>
+{{ form_row(formBook.title) }}
 {{ form_widget(formBook) }}
 {{ form_end(formBook) }}
 {% endblock %}

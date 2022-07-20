@@ -17,8 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
 {
+    private AuthorRepository $authorRepository;
+    private BookRepository $bookRepository;
+
+    /**
+     * @param AuthorRepository $authorRepository
+     * @param BookRepository $bookRepository
+     */
+    public function __construct(AuthorRepository $authorRepository, BookRepository $bookRepository)
+    {
+        $this->authorRepository = $authorRepository;
+        $this->bookRepository = $bookRepository;
+    }
+
     #[Route("/db/authors", name: 'book_index')]
-    public function index(AuthorRepository $authorRepository, BookRepository $bookRepository): Response
+    public function index(): Response
     {
         $author = new Author();
         $formAuthor= $this->createForm(AuthorType::class, $author);
@@ -27,8 +40,8 @@ class AuthorController extends AbstractController
         $formBook = $this->createForm(BookType::class, $book);
 
         return $this->render('Author/main.html.twig', [
-            'books' => $bookRepository->findAll(),
-            'authors' => $authorRepository->findAll(),
+            'books' => $this->bookRepository->findAll(),
+            'authors' => $this->authorRepository->findAll(),
             'author' => $author,
             'formAuthor' => $formAuthor->createView(),
             'book' => $book,
@@ -36,22 +49,25 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route("/db/createauthor", name:"addAuthor")]
-    public function new(Author $author = null, EntityManagerInterface $manager, Request $request): Response
+    #[Route("/db/create-author", name:"addAuthor")]
+    public function createAction(EntityManagerInterface $manager, Request $request, Author $author = null): Response
     {
         if (! $author) {
             $author = new Author();
         }
+
         $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form-> isValid()) {
             $manager->persist($author);
             $manager->flush();
             return $this->redirectToRoute('book_index', []);
         }
+
         return $this->render("author/addauthor.html.twig", [
             'formAuthor' => $form->createView(),
-            'editMode' => $author-> getId() != null
+            'editMode' => $author->getId() !== null
         ]);
     }
 

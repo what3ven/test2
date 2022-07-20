@@ -13,32 +13,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Author|null findOneBy(array $criteria, array $orderBy = null)
  * @method Author[]    findAll()
  * @method Author[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method add(Author $entity, bool $flush = false)
  */
-class AuthorRepository extends ServiceEntityRepository
+class AuthorRepository extends AbstractEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Author::class);
     }
-
-    public function add(Author $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Author $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
 
 //    /**
 //     * @return Author[] Returns an array of Author objects
