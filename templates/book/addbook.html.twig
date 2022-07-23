@@ -9,9 +9,9 @@
 <h1>Добавление книги</h1>
 {{ form_start(formBook) }}
     <div class="label">
-        {{ form_label(formBook.title) }}
+        {{ form_label(formBook.name) }}
     </div>
-{{ form_row(formBook.title) }}
+{{ form_row(formBook.name) }}
 {{ form_widget(formBook) }}
 {{ form_end(formBook) }}
 {% endblock %}

@@ -22,9 +22,10 @@ class Book
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image;
 
-    #[ORM\ManyToMany(targetEntity: Author::class,inversedBy: "books")]
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "books")]
     #[ORM\JoinTable(name: 'author_book')]
     private Collection $authors;
+
     public function __construct()
     {
         $this->authors = new ArrayCollection();
@@ -76,6 +77,7 @@ class Book
 
         return $this;
     }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -87,6 +89,7 @@ class Book
 
         return $this;
     }
+
     /**
      * @return Collection<Author>
      */
@@ -105,6 +108,7 @@ class Book
 
         return $this;
     }
+
     public function removeAuthor(Author $author): self
     {
         if ($this->authors->removeElement($author)) {
@@ -112,5 +116,10 @@ class Book
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

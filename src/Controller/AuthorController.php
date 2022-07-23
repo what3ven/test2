@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
 {
+
     private AuthorRepository $authorRepository;
     private BookRepository $bookRepository;
 
@@ -30,8 +31,8 @@ class AuthorController extends AbstractController
         $this->bookRepository = $bookRepository;
     }
 
-    #[Route("/db/authors", name: 'book_index')]
-    public function index(): Response
+    #[Route("/db/authors", name: 'author_index')]
+    public function indexAction(): Response
     {
         $author = new Author();
         $formAuthor= $this->createForm(AuthorType::class, $author);
@@ -65,14 +66,14 @@ class AuthorController extends AbstractController
             return $this->redirectToRoute('book_index', []);
         }
 
-        return $this->render("author/addauthor.html.twig", [
+        return $this->render('author/addauthor.html.twig', [
             'formAuthor' => $form->createView(),
             'editMode' => $author->getId() !== null
         ]);
     }
 
     #[Route("/db/editauthor/{id}", name:"author_edit")]
-    public function edit(EntityManagerInterface $manager, Request $request, Author $author): Response
+    public function editAction(EntityManagerInterface $manager, Request $request, Author $author): Response
     {
         $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
@@ -90,12 +91,14 @@ class AuthorController extends AbstractController
     }
 
     #[Route("/db/delete/{id}", name:"author_delete")]
-    public function delete(EntityManagerInterface $manager, Request $request, Author $author): Response
+    public function deleteAction(EntityManagerInterface $manager, Request $request, Author $author): Response
     {
         $manager->remove($author);
         $manager->flush();
 
         return $this->redirectToRoute('author_index', []);
     }
+
+
 
 }

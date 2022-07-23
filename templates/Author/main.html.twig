@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author index{% endblock %}
+{% block name %}Author index{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -20,7 +20,7 @@
                     <tbody>
                     {% for author in authors %}
                         <tr>
-                            <td>{{ author.title }}</td>
+                            <td>{{ author.name }}</td>
                             <td>
                                 <form method="post" action="{{ path('author_delete', {'id': author.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                     <button class="btn btn-primary">
@@ -46,10 +46,10 @@
 
                 <h1>Book</h1>
 
-                {{ form_start(formBoook, {'action': path('addBook'), 'method': 'POST'}) }}
-                {{ form_widget(formBoook) }}
+                {{ form_start(formBook, {'action': path('addBook'), 'method': 'POST'}) }}
+                {{ form_widget(formBook) }}
                 <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i></button>
-                {{ form_end(formBoook) }}
+                {{ form_end(formBook) }}
 
                 <table class="table table-striped">
                     <thead>
@@ -64,7 +64,7 @@
                     <tbody>
                     {% for book in books %}
                         <tr>
-                            <td>{{ book.title }}</td>
+                            <td>{{ book.name }}</td>
                             <td>{{ book.description}}</td>
                             <td>{{ book.publicationDate}}</td>
                             <td>{{ book.Image}}</td>

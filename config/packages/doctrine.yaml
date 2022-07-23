@@ -25,6 +25,10 @@ when@test:
 when@prod:
     doctrine:
         orm:
+            entity_managers:
+                default:
+                    mappings:
+                        SonataUserBundle: ~
             auto_generate_proxy_classes: false
             query_cache_driver:
                 type: pool

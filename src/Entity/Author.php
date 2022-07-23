@@ -16,13 +16,14 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private string $title;
+    private string $name;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: "authors")]
     #[ORM\JoinTable(name: 'author_book')]
     private Collection $books;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->books = new ArrayCollection();
     }
 
@@ -31,17 +32,18 @@ class Author
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
+
     /**
      * @return Collection<Book>
      */
@@ -64,5 +66,10 @@ class Author
         $this->books->removeElement($book);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
